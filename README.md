@@ -56,7 +56,7 @@ Experience Ultra-Smooth PC performance, professional aesthetics, real-time syste
 ## 📥 Download & Install
 
 **Step 1 — Download**  
-⬇️ [Download NITRO OPTIMISER v1.0.0.exe](https://github.com/Nitrodz00/NITRO-OPTIMISER/releases/latest/download/NitroOptimizer_Standalone.exe)
+⬇️ [Download NITRO OPTIMISER v1.0.0.exe](https://github.com/Nitrodz00/NITRO-OPTIMISER/releases/latest/download/NITRO%20OPTIMISER.exe)
 
 **Step 2 — Install**  
 - Right-click the executable → **Run as Administrator** (Required for deep registry tweaks and RAM clearing).
