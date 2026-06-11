@@ -1,0 +1,131 @@
+<Window x:Class="NitroOptimizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:NitroOptimizer.ViewModels"
+        xmlns:views="clr-namespace:NitroOptimizer.Views"
+        mc:Ignorable="d"
+        Title="NITRO OPTIMISER" Height="750" Width="1100"
+        WindowStyle="None" AllowsTransparency="True" Background="{StaticResource BgDarkBrush}"
+        WindowStartupLocation="CenterScreen" Icon="Assets/icon.png">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
+            <views:DashboardView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:PerformanceViewModel}">
+            <views:PerformanceView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:CleaningViewModel}">
+            <views:CleaningView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:GamingViewModel}">
+            <views:GamingView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:NetworkViewModel}">
+            <views:NetworkView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:RepairViewModel}">
+            <views:RepairView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:StartupViewModel}">
+            <views:StartupView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:ProcessesViewModel}">
+            <views:ProcessesView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DriversViewModel}">
+            <views:DriversView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:ReportsViewModel}">
+            <views:ReportsView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Background Grid Effect -->
+        <Border>
+            <Border.Background>
+                <DrawingBrush Viewport="0,0,40,40" ViewportUnits="Absolute" TileMode="Tile">
+                    <DrawingBrush.Drawing>
+                        <GeometryDrawing Geometry="M0,0 L40,0 40,40, 0,40Z">
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="#20FF00FF" Thickness="1"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Border.Background>
+            <Border.OpacityMask>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#00000000" Offset="0.0"/>
+                    <GradientStop Color="#FFFFFFFF" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.OpacityMask>
+        </Border>
+
+        <!-- Top Bar -->
+        <Grid Height="45" VerticalAlignment="Top" Background="#11111A" MouseLeftButtonDown="Window_MouseDown">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="15,0">
+                <Image Source="/Assets/icon.png" Width="26" Height="26" Margin="0,0,10,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                <TextBlock Text="NITRO OPTIMISER" Foreground="{StaticResource TextWhiteBrush}" 
+                           FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+                <Button Content="-" Width="30" Height="30" Background="Transparent" BorderBrush="Transparent" Foreground="White" Click="Minimize_Click"/>
+                <Button Content="X" Width="30" Height="30" Background="Transparent" BorderBrush="Transparent" Foreground="Red" Click="Close_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Main Content -->
+        <Grid Margin="0,45,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Sidebar -->
+            <StackPanel Grid.Column="0" Background="#161622" Margin="10,10,10,20" Opacity="0.95" VerticalAlignment="Stretch">
+                <StackPanel.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="Black" Opacity="0.5" ShadowDepth="0"/>
+                </StackPanel.Effect>
+                
+                <Button Content="DASHBOARD" Style="{StaticResource NeonButtonStyle}" Margin="10,20,10,5" Command="{Binding NavigateCommand}" CommandParameter="Dashboard" Height="40"/>
+                <Button Content="PERFORMANCE" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Performance" Height="40"/>
+                <Button Content="CLEANING" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Cleaning" Height="40"/>
+                <Button Content="GAMING" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Gaming" Height="40"/>
+                <Button Content="NETWORK" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Network" Height="40"/>
+                <Button Content="REPAIR" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Repair" Height="40"/>
+                <Button Content="STARTUP" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Startup" Height="40"/>
+                <Button Content="PROCESSES" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Processes" Height="40"/>
+                <Button Content="DRIVERS" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Drivers" Height="40"/>
+                <Button Content="REPORTS" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Reports" Height="40"/>
+            </StackPanel>
+
+            <!-- Content Frame -->
+            <Border Grid.Column="1" Background="#0C0C12" Margin="5,10,10,110" CornerRadius="8" Opacity="0.9">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="15" Color="Black" Opacity="0.3"/>
+                </Border.Effect>
+                <ContentControl Content="{Binding CurrentView}" Margin="15"/>
+            </Border>
+            
+            <!-- Bottom Action Bar (Optimize & Checkbox) -->
+            <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20">
+                <Button Content="OPTIMIZE MY PC" Background="{StaticResource MagentaBrush}" Foreground="White" BorderThickness="0" FontWeight="Bold" FontSize="18" Height="45" Width="300" Command="{Binding SmartOptimizeCommand}" Margin="0,0,0,10">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <CheckBox Content="Create Restore Point Before Start" Foreground="LightGray" IsChecked="{Binding CreateRestorePoint}" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Status Bar -->
+            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding StatusText}" Foreground="{StaticResource CyanBrush}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10" FontSize="14" FontWeight="Bold"/>
+        </Grid>
+    </Grid>
+</Window>

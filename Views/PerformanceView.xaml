@@ -1,0 +1,31 @@
+<UserControl x:Class="NitroOptimizer.Views.PerformanceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Foreground="{StaticResource TextWhiteBrush}">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="PERFORMANCE TWEAKS" FontSize="24" FontWeight="Bold" Foreground="{StaticResource MagentaBrush}" Margin="0,0,0,20"/>
+
+        <StackPanel Grid.Row="1">
+            <Button Content="Enable Ultimate Performance" Style="{StaticResource NeonButtonStyle}" Command="{Binding EnableUltimatePerformanceCommand}" Height="40" Margin="0,5"/>
+            <TextBlock Text="Unlocks the hidden Ultimate Performance power plan." Foreground="Gray" FontSize="11" Margin="5,0,0,10"/>
+            
+            <Button Content="Enable High Performance" Style="{StaticResource NeonButtonStyle}" Command="{Binding EnableHighPerformanceCommand}" Height="40" Margin="0,5"/>
+            <TextBlock Text="Sets the system to standard High Performance mode." Foreground="Gray" FontSize="11" Margin="5,0,0,10"/>
+
+            <Button Content="Prevent Sleep Mode" Style="{StaticResource NeonButtonStyle}" Command="{Binding PreventSleepCommand}" Height="40" Margin="0,5"/>
+            <TextBlock Text="Disables system sleep, useful when downloading or gaming." Foreground="Gray" FontSize="11" Margin="5,0,0,10"/>
+
+            <Button Content="Restore Default Power Settings" Style="{StaticResource NeonButtonStyle}" Command="{Binding RestoreDefaultPowerCommand}" Height="40" Margin="0,5" BorderBrush="Gray"/>
+            <TextBlock Text="Reverts power settings to Windows defaults." Foreground="Gray" FontSize="11" Margin="5,0,0,10"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="2" Text="{Binding StatusMessage}" Foreground="{StaticResource CyanBrush}" FontWeight="Bold" Margin="0,10,0,0"/>
+    </Grid>
+</UserControl>

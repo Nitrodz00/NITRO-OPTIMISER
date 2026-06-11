@@ -1,0 +1,65 @@
+<UserControl x:Class="NitroOptimizer.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Foreground="{StaticResource TextWhiteBrush}">
+
+    <UserControl.Resources>
+        <Style TargetType="ProgressBar" x:Key="NeonProgress">
+            <Setter Property="Height" Value="10"/>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="{StaticResource MagentaAccent}" Offset="0.0"/>
+                        <GradientStop Color="{StaticResource CyanAccent}" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="#222233"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="SYSTEM DASHBOARD" FontSize="24" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,20"/>
+
+        <StackPanel Grid.Row="1">
+            <!-- System Health Overview -->
+            <Border Background="#11111A" CornerRadius="8" Padding="15" Margin="0,0,0,20">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="System Health:" FontSize="18" Foreground="Gray"/>
+                    <TextBlock Text="{Binding SystemStatus}" FontSize="18" FontWeight="Bold" Foreground="{StaticResource MagentaBrush}" Margin="10,0,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Drives Section -->
+            <TextBlock Text="Storage Drives" FontSize="18" Foreground="{StaticResource CyanBrush}" FontWeight="Bold" Margin="0,0,0,10"/>
+            
+            <ItemsControl ItemsSource="{Binding Drives}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#11111A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Grid>
+                                    <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{Binding UsageText}" FontSize="14" Foreground="Gray" HorizontalAlignment="Right"/>
+                                </Grid>
+                                
+                                <ProgressBar Grid.Row="1" Minimum="0" Maximum="100" Value="{Binding UsagePercentage}" Style="{StaticResource NeonProgress}" Margin="0,10,0,0"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</UserControl>
