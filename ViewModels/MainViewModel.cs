@@ -24,7 +24,7 @@ namespace NitroOptimizer.ViewModels
         private bool _createRestorePoint = true;
 
         [ObservableProperty]
-        private string _statusText = "Status: Idle";
+        private string _statusText = "Status: Ready - Awaiting commands";
 
         public MainViewModel()
         {

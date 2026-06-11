@@ -79,15 +79,15 @@
             </StackPanel>
         </Grid>
 
-        <!-- Main Content -->
-        <Grid Margin="0,45,0,0">
+        <!-- Main Content Area -->
+        <Grid Margin="0,45,0,30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Sidebar -->
-            <StackPanel Grid.Column="0" Background="#161622" Margin="10,10,10,20" Opacity="0.95" VerticalAlignment="Stretch">
+            <StackPanel Grid.Column="0" Background="#161622" Margin="10,10,10,10" Opacity="0.95" VerticalAlignment="Stretch">
                 <StackPanel.Effect>
                     <DropShadowEffect BlurRadius="10" Color="Black" Opacity="0.5" ShadowDepth="0"/>
                 </StackPanel.Effect>
@@ -113,7 +113,7 @@
             </Border>
             
             <!-- Bottom Action Bar (Optimize & Checkbox) -->
-            <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20">
+            <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10">
                 <Button Content="OPTIMIZE MY PC" Background="{StaticResource MagentaBrush}" Foreground="White" BorderThickness="0" FontWeight="Bold" FontSize="18" Height="45" Width="300" Command="{Binding SmartOptimizeCommand}" Margin="0,0,0,10">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -123,9 +123,11 @@
                 </Button>
                 <CheckBox Content="Create Restore Point Before Start" Foreground="LightGray" IsChecked="{Binding CreateRestorePoint}" HorizontalAlignment="Center"/>
             </StackPanel>
-
-            <!-- Status Bar -->
-            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding StatusText}" Foreground="{StaticResource CyanBrush}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10" FontSize="14" FontWeight="Bold"/>
         </Grid>
+
+        <!-- Dedicated Status Bar -->
+        <Border VerticalAlignment="Bottom" Height="30" Background="#0C0C12" BorderThickness="0,1,0,0" BorderBrush="#222233">
+            <TextBlock Text="{Binding StatusText}" Foreground="{StaticResource CyanBrush}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="13" FontWeight="Bold"/>
+        </Border>
     </Grid>
 </Window>
