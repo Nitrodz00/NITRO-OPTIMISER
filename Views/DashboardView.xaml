@@ -28,13 +28,35 @@
         <TextBlock Text="SYSTEM DASHBOARD" FontSize="24" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,20"/>
 
         <StackPanel Grid.Row="1">
-            <!-- System Health Overview -->
-            <Border Background="#11111A" CornerRadius="8" Padding="15" Margin="0,0,0,20">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="System Health:" FontSize="18" Foreground="Gray"/>
-                    <TextBlock Text="{Binding SystemStatus}" FontSize="18" FontWeight="Bold" Foreground="{StaticResource MagentaBrush}" Margin="10,0,0,0"/>
-                </StackPanel>
-            </Border>
+            <!-- System Health & Live Temperature Monitor -->
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="#11111A" CornerRadius="8" Padding="15" Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Health:" FontSize="16" Foreground="Gray" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding SystemStatus}" FontSize="16" FontWeight="Bold" Foreground="{StaticResource MagentaBrush}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Background="#11111A" CornerRadius="8" Padding="15" Margin="5,0,5,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="CPU Temp:" FontSize="16" Foreground="Gray" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding CpuTemp}" FontSize="16" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Background="#11111A" CornerRadius="8" Padding="15" Margin="5,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="GPU Temp:" FontSize="16" Foreground="Gray" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding GpuTemp}" FontSize="16" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
 
             <!-- Drives Section -->
             <TextBlock Text="Storage Drives" FontSize="18" Foreground="{StaticResource CyanBrush}" FontWeight="Bold" Margin="0,0,0,10"/>
@@ -60,6 +82,17 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+
+            <!-- Quick Dashboard Actions -->
+            <TextBlock Text="Quick Actions" FontSize="18" Foreground="{StaticResource CyanBrush}" FontWeight="Bold" Margin="0,15,0,10"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Restore Windows Defaults" Style="{StaticResource NeonButtonStyle}" Command="{Binding RevertTweaksCommand}" Height="40" Margin="0,0,5,0"/>
+                <Button Grid.Column="1" Content="Toggle Floating Stats Widget" Style="{StaticResource NeonButtonStyle}" Command="{Binding ToggleWidgetCommand}" Height="40" Margin="5,0,0,0"/>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>

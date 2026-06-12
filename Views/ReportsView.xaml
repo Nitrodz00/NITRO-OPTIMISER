@@ -31,7 +31,8 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,0">
             <Button Content="Generate Report" Style="{StaticResource NeonButtonStyle}" Command="{Binding GenerateReportCommand}" Width="150" Margin="0,0,10,0"/>
             <Button Content="Save to Desktop" Style="{StaticResource NeonButtonStyle}" Command="{Binding SaveReportCommand}" BorderBrush="{StaticResource CyanBrush}" Width="150"/>
-            <TextBlock Text="{Binding StatusMessage}" Foreground="Gray" VerticalAlignment="Center" Margin="15,0,0,0"/>
+            <Button Content="Export Specs Card" Style="{StaticResource NeonButtonStyle}" Command="{Binding ExportSpecsCardCommand}" BorderBrush="{StaticResource MagentaBrush}" Width="150" Margin="10,0,0,0"/>
+            <TextBlock Text="{Binding StatusMessage}" Foreground="{StaticResource CyanBrush}" VerticalAlignment="Center" Margin="15,0,0,0" FontWeight="Bold"/>
         </StackPanel>
     </Grid>
 </UserControl>

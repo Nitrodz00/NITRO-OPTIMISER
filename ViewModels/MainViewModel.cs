@@ -36,6 +36,56 @@ namespace NitroOptimizer.ViewModels
 
             // Set default view
             CurrentView = services.GetRequiredService<DashboardViewModel>();
+
+            // Check for updates
+            _ = CheckForUpdatesAsync();
+        }
+
+        private async Task CheckForUpdatesAsync()
+        {
+            try
+            {
+                using (var client = new System.Net.Http.HttpClient())
+                {
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("NitroOptimizer-Updater");
+                    var response = await client.GetStringAsync("https://api.github.com/repos/Nitrodz00/NITRO-OPTIMISER/releases/latest");
+                    
+                    using (var doc = System.Text.Json.JsonDocument.Parse(response))
+                    {
+                        var root = doc.RootElement;
+                        if (root.TryGetProperty("tag_name", out var tagProperty))
+                        {
+                            var latestVersion = tagProperty.GetString()?.Trim().ToLower(); // e.g. "v1.0.0"
+                            var currentVersion = "v1.0.1"; // Updated to current release v1.0.1
+                            
+                            if (latestVersion != null && latestVersion != currentVersion)
+                            {
+                                Application.Current.Dispatcher.Invoke(() =>
+                                {
+                                    var result = MessageBox.Show(
+                                        $"A new update ({latestVersion}) is available!\nWould you like to download it now?",
+                                        "NITRO OPTIMISER - Update Available",
+                                        MessageBoxButton.YesNo,
+                                        MessageBoxImage.Information);
+                                        
+                                    if (result == MessageBoxResult.Yes)
+                                    {
+                                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                                        {
+                                            FileName = "https://github.com/Nitrodz00/NITRO-OPTIMISER/releases/latest",
+                                            UseShellExecute = true
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Update check failed: {ex.Message}");
+            }
         }
 
         [RelayCommand]
@@ -73,6 +123,9 @@ namespace NitroOptimizer.ViewModels
                     break;
                 case "Reports":
                     CurrentView = services.GetRequiredService<ReportsViewModel>();
+                    break;
+                case "Debloat":
+                    CurrentView = services.GetRequiredService<DebloaterViewModel>();
                     break;
             }
         }

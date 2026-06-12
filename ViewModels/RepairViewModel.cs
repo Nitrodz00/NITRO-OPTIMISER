@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NitroOptimizer.Services.Interfaces;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -8,8 +9,30 @@ namespace NitroOptimizer.ViewModels
 {
     public partial class RepairViewModel : ObservableObject
     {
+        private readonly ITweakService _tweakService;
+
         [ObservableProperty] private string _statusMessage = string.Empty;
         [ObservableProperty] private bool _isBusy = false;
+        [ObservableProperty] private bool _disableJunkContextMenu;
+
+        public RepairViewModel(ITweakService tweakService)
+        {
+            _tweakService = tweakService;
+        }
+
+        partial void OnDisableJunkContextMenuChanged(bool value)
+        {
+            _ = ManageContextMenuAsync(value);
+        }
+
+        private async Task ManageContextMenuAsync(bool value)
+        {
+            IsBusy = true;
+            StatusMessage = value ? "⏳ Disabling junk desktop context menu items..." : "⏳ Restoring default desktop context menu items...";
+            var result = await _tweakService.ManageContextMenuAsync(value);
+            StatusMessage = result.Success ? $"✅ {result.Message}" : $"❌ {result.Message}";
+            IsBusy = false;
+        }
 
         [RelayCommand]
         private async Task RunSfcScanAsync()

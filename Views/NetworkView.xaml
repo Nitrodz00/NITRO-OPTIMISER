@@ -10,30 +10,102 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <TextBlock Text="NETWORK TWEAKS" FontSize="24" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,20"/>
+        <TextBlock Text="NETWORK TWEAKS" FontSize="24" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,15"/>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            <!-- Repairs -->
-            <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                <TextBlock Text="Repairs" Foreground="Gray" FontWeight="Bold" Margin="5,0,0,5"/>
-                <Button Content="Flush DNS" Style="{StaticResource NeonButtonStyle}" Command="{Binding FlushDnsCommand}" Height="40" Margin="0,5"/>
-                <Button Content="Reset Winsock" Style="{StaticResource NeonButtonStyle}" Command="{Binding ResetWinsockCommand}" Height="40" Margin="0,5"/>
-                <Button Content="Reset TCP/IP" Style="{StaticResource NeonButtonStyle}" Command="{Binding ResetTcpIpCommand}" Height="40" Margin="0,5"/>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Repairs Column -->
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                        <Border Background="#11111A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock Text="Repairs" FontSize="16" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,10"/>
+                                <Button Content="Flush DNS" Style="{StaticResource NeonButtonStyle}" Command="{Binding FlushDnsCommand}" Height="38" Margin="0,4"/>
+                                <Button Content="Reset Winsock" Style="{StaticResource NeonButtonStyle}" Command="{Binding ResetWinsockCommand}" Height="38" Margin="0,4"/>
+                                <Button Content="Reset TCP/IP Stack" Style="{StaticResource NeonButtonStyle}" Command="{Binding ResetTcpIpCommand}" Height="38" Margin="0,4"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#11111A" CornerRadius="8" Padding="15">
+                            <StackPanel>
+                                <TextBlock Text="Advanced TCP/IP Tweaks" FontSize="16" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,10"/>
+                                <Button Content="Apply TCP/IP Speed Tweaks" Style="{StaticResource NeonButtonStyle}" Command="{Binding ApplyTcpIpTweaksCommand}" Height="38" Margin="0,4"/>
+                                <Button Content="Restore TCP/IP Defaults" Style="{StaticResource NeonButtonStyle}" Command="{Binding RestoreTcpIpTweaksCommand}" Height="38" Margin="0,4"/>
+                                <TextBlock Text="Toggles ECN, Autotuning, and network responsiveness settings." Foreground="Gray" FontSize="11" Margin="5,5,0,0" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- DNS Column -->
+                    <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                        <!-- Quick Settings -->
+                        <Border Background="#11111A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock Text="Quick DNS Optimization" FontSize="16" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,10"/>
+                                <Button Content="Apply Google DNS (8.8.8.8)" Style="{StaticResource NeonButtonStyle}" Command="{Binding SetGoogleDnsCommand}" Height="38" Margin="0,4"/>
+                                <Button Content="Apply Cloudflare DNS (1.1.1.1)" Style="{StaticResource NeonButtonStyle}" Command="{Binding SetCloudflareDnsCommand}" Height="38" Margin="0,4"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Benchmarker -->
+                        <Border Background="#11111A" CornerRadius="8" Padding="15">
+                            <StackPanel>
+                                <TextBlock Text="DNS Latency Benchmarker" FontSize="16" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,10"/>
+                                
+                                <Grid Margin="5,0,5,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Cloudflare -->
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Cloudflare (1.1.1.1):" Foreground="LightGray" VerticalAlignment="Center" Margin="0,4"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CloudflarePing}" Foreground="{StaticResource MagentaBrush}" FontWeight="Bold" VerticalAlignment="Center" Margin="0,4"/>
+
+                                    <!-- Google -->
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Google (8.8.8.8):" Foreground="LightGray" VerticalAlignment="Center" Margin="0,4"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding GooglePing}" Foreground="{StaticResource MagentaBrush}" FontWeight="Bold" VerticalAlignment="Center" Margin="0,4"/>
+
+                                    <!-- Quad9 -->
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Quad9 (9.9.9.9):" Foreground="LightGray" VerticalAlignment="Center" Margin="0,4"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Quad9Ping}" Foreground="{StaticResource MagentaBrush}" FontWeight="Bold" VerticalAlignment="Center" Margin="0,4"/>
+
+                                    <!-- AdGuard -->
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="AdGuard (94.140.14.14):" Foreground="LightGray" VerticalAlignment="Center" Margin="0,4"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding AdGuardPing}" Foreground="{StaticResource MagentaBrush}" FontWeight="Bold" VerticalAlignment="Center" Margin="0,4"/>
+
+                                    <!-- Level3 -->
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Level3 (4.2.2.2):" Foreground="LightGray" VerticalAlignment="Center" Margin="0,4"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Level3Ping}" Foreground="{StaticResource MagentaBrush}" FontWeight="Bold" VerticalAlignment="Center" Margin="0,4"/>
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Content="Run Test" Style="{StaticResource NeonButtonStyle}" Command="{Binding BenchmarkDnsCommand}" Height="35" Margin="0,0,3,0"/>
+                                    <Button Grid.Column="1" Content="Apply Fastest" Style="{StaticResource NeonButtonStyle}" Command="{Binding ApplyFastestDnsCommand}" Height="35" Margin="3,0,0,0"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
             </StackPanel>
+        </ScrollViewer>
 
-            <!-- DNS -->
-            <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                <TextBlock Text="DNS Optimization" Foreground="Gray" FontWeight="Bold" Margin="5,0,0,5"/>
-                <Button Content="Apply Google DNS (8.8.8.8)" Style="{StaticResource NeonButtonStyle}" Command="{Binding SetGoogleDnsCommand}" Height="40" Margin="0,5"/>
-                <Button Content="Apply Cloudflare DNS (1.1.1.1)" Style="{StaticResource NeonButtonStyle}" Command="{Binding SetCloudflareDnsCommand}" Height="40" Margin="0,5"/>
-            </StackPanel>
-        </Grid>
-
-        <TextBlock Grid.Row="2" Text="{Binding StatusMessage}" Foreground="{StaticResource MagentaBrush}" FontWeight="Bold" Margin="0,10,0,0"/>
+        <TextBlock Grid.Row="2" Text="{Binding StatusMessage}" Foreground="{StaticResource MagentaBrush}" FontWeight="Bold" Margin="0,5,0,0"/>
     </Grid>
 </UserControl>

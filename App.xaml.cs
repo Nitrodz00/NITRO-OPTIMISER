@@ -22,6 +22,8 @@ namespace NitroOptimizer
                     services.AddSingleton<ITweakService, TweakService>();
                     services.AddSingleton<INetworkService, NetworkService>();
                     services.AddSingleton<IRestorePointService, RestorePointService>();
+                    services.AddSingleton<GameBoosterService>();
+                    services.AddSingleton<AutoCleanerService>();
                     
                     // ViewModels
                     services.AddSingleton<MainViewModel>();
@@ -35,6 +37,8 @@ namespace NitroOptimizer
                     services.AddSingleton<ProcessesViewModel>();
                     services.AddSingleton<DriversViewModel>();
                     services.AddSingleton<ReportsViewModel>();
+                    services.AddSingleton<DebloaterViewModel>();
+                    services.AddSingleton<WidgetViewModel>();
                     
                     // Windows
                     services.AddSingleton<MainWindow>();
@@ -46,12 +50,18 @@ namespace NitroOptimizer
         {
             await AppHost!.StartAsync();
 
+            // Instantiate Auto-Cleaner and System Tray service
+            AppHost.Services.GetRequiredService<AutoCleanerService>();
+
             var mainWindow = AppHost.Services.GetRequiredService<MainWindow>();
             mainWindow.Show();
         }
 
         protected override async void OnExit(ExitEventArgs e)
         {
+            // Clean up Tray Icons
+            AppHost!.Services.GetService<AutoCleanerService>()?.Shutdown();
+
             await AppHost!.StopAsync();
             base.OnExit(e);
         }

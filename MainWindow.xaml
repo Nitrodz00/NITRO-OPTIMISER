@@ -41,6 +41,9 @@
         <DataTemplate DataType="{x:Type viewmodels:ReportsViewModel}">
             <views:ReportsView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DebloaterViewModel}">
+            <views:DebloaterView/>
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>
@@ -102,6 +105,7 @@
                 <Button Content="PROCESSES" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Processes" Height="40"/>
                 <Button Content="DRIVERS" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Drivers" Height="40"/>
                 <Button Content="REPORTS" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Reports" Height="40"/>
+                <Button Content="DEBLOATER" Style="{StaticResource NeonButtonStyle}" Margin="10,5" Command="{Binding NavigateCommand}" CommandParameter="Debloat" Height="40"/>
             </StackPanel>
 
             <!-- Content Frame -->

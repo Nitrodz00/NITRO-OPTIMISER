@@ -1,0 +1,40 @@
+<UserControl x:Class="NitroOptimizer.Views.DebloaterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Foreground="{StaticResource TextWhiteBrush}">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="WINDOWS DEBLOATER" FontSize="24" FontWeight="Bold" Foreground="{StaticResource MagentaBrush}" Margin="0,0,0,15"/>
+
+        <Border Grid.Row="1" Background="#11111A" CornerRadius="8" Padding="20">
+            <StackPanel>
+                <TextBlock Text="Safely remove Windows telemetry trackers and pre-installed bloatware applications to free up system memory and CPU cycles." 
+                           Foreground="LightGray" FontSize="13" TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+                <CheckBox Content="Uninstall Bloatware Apps (Cortana, News, Weather, Feedback Hub, 3D Viewer)" 
+                          IsChecked="{Binding RemoveBloatwareApps}" 
+                          Foreground="White" FontSize="13" Margin="0,10"/>
+
+                <CheckBox Content="Disable Telemetry &amp; Diagnostic Data Tracking Services" 
+                          IsChecked="{Binding DisableTelemetryAndDataCollection}" 
+                          Foreground="White" FontSize="13" Margin="0,10"/>
+                          
+                <Button Content="RUN WINDOWS DEBLOATER" 
+                        Style="{StaticResource NeonButtonStyle}" 
+                        Command="{Binding RunDebloatCommand}" 
+                        Height="45" Margin="0,20,0,0" FontWeight="Bold"/>
+                        
+                <TextBlock Text="Note: Telemetry changes will take effect after system restart. Bloatware apps are uninstalled for the current user profile." 
+                           Foreground="Gray" FontSize="11" Margin="0,15,0,0" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <TextBlock Grid.Row="2" Text="{Binding StatusMessage}" Foreground="{StaticResource CyanBrush}" FontWeight="Bold" Margin="0,10,0,0"/>
+    </Grid>
+</UserControl>

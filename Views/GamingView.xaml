@@ -10,13 +10,77 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <TextBlock Text="GAMING OPTIMIZATION" FontSize="24" FontWeight="Bold" Foreground="{StaticResource MagentaBrush}" Margin="0,0,0,20"/>
+        <TextBlock Text="GAMING OPTIMIZATION" FontSize="24" FontWeight="Bold" Foreground="{StaticResource MagentaBrush}" Margin="0,0,0,15"/>
 
-        <StackPanel Grid.Row="1">
-            <Button Content="Apply Registry Gaming Optimizations" Style="{StaticResource NeonButtonStyle}" Command="{Binding ApplyGamingTweaksCommand}" Height="45" Margin="0,5"/>
-            <TextBlock Text="Disables GameDVR and enables Hardware Accelerated GPU Scheduling (Requires Restart)." Foreground="Gray" FontSize="12" Margin="5,0,0,10" TextWrapping="Wrap"/>
-        </StackPanel>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
+            <StackPanel>
+                <!-- Group 1: General & Mouse Tweaks -->
+                <Border Background="#11111A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="General Tweaks" FontSize="16" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,10"/>
+                        
+                        <CheckBox Content="Enable background Auto-Boost Monitor (PUBG, Valorant, Gameloop)" 
+                                  IsChecked="{Binding IsAutoBoostEnabled}" 
+                                  Foreground="White" FontSize="13" Margin="0,0,0,15"/>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Apply Registry Gaming Optimizations" Style="{StaticResource NeonButtonStyle}" Command="{Binding ApplyGamingTweaksCommand}" Height="40" Margin="0,0,5,0"/>
+                            <Button Grid.Column="1" Content="Apply Mouse 1:1 Raw Input (MarkC)" Style="{StaticResource NeonButtonStyle}" Command="{Binding ApplyMouseTweaksCommand}" Height="40" Margin="5,0,0,0"/>
+                        </Grid>
+                        
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Disables GameDVR and enables HAGS." Foreground="Gray" FontSize="11" VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" Content="Restore Mouse Defaults" Style="{StaticResource NeonButtonStyle}" Command="{Binding RestoreMouseTweaksCommand}" Height="30" Margin="5,0,0,0"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
 
-        <TextBlock Grid.Row="2" Text="{Binding StatusMessage}" Foreground="{StaticResource CyanBrush}" FontWeight="Bold" Margin="0,10,0,0"/>
+                <!-- Group 2: Game-Specific Profiles -->
+                <Border Background="#11111A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="Game-Specific Performance Profiles" FontSize="16" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,10"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="0" SelectedItem="{Binding SelectedProfile}" ItemsSource="{Binding Profiles}" Height="40" Background="#222233" Foreground="White" BorderThickness="1" BorderBrush="#FF00FF" VerticalContentAlignment="Center" Padding="10,0"/>
+                            <Button Grid.Column="1" Content="Apply Profile" Style="{StaticResource NeonButtonStyle}" Command="{Binding ApplyProfileCommand}" Height="40" Width="120" Margin="10,0,5,0"/>
+                            <Button Grid.Column="2" Content="Revert Profile" Style="{StaticResource NeonButtonStyle}" Command="{Binding RestoreProfileCommand}" Height="40" Width="120" Margin="5,0,0,0"/>
+                        </Grid>
+                        <TextBlock Text="Select a custom optimization profile tuned for specific game engines or general play." Foreground="Gray" FontSize="11" Margin="5,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Group 3: Stretched Resolutions -->
+                <Border Background="#11111A" CornerRadius="8" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="Custom Stretched Resolution (GPU Scale)" FontSize="16" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" Margin="0,0,0,10"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="0" SelectedItem="{Binding SelectedResolution}" ItemsSource="{Binding Resolutions}" Height="40" Background="#222233" Foreground="White" BorderThickness="1" BorderBrush="#FF00FF" VerticalContentAlignment="Center" Padding="10,0"/>
+                            <Button Grid.Column="1" Content="Apply Resolution" Style="{StaticResource NeonButtonStyle}" Command="{Binding ApplyResolutionCommand}" Height="40" Width="150" Margin="10,0,5,0"/>
+                            <Button Grid.Column="2" Content="Restore Defaults" Style="{StaticResource NeonButtonStyle}" Command="{Binding RestoreResolutionCommand}" Height="40" Width="150" Margin="5,0,0,0"/>
+                        </Grid>
+                        <TextBlock Text="Set standard stretch aspect ratios. Windows native display change is used." Foreground="Gray" FontSize="11" Margin="5,5,0,0"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <TextBlock Grid.Row="2" Text="{Binding StatusMessage}" Foreground="{StaticResource CyanBrush}" FontWeight="Bold" Margin="0,5,0,0"/>
     </Grid>
 </UserControl>

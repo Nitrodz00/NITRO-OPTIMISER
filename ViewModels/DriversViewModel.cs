@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NitroOptimizer.Services.Interfaces;
 using System.Collections.ObjectModel;
 using System.Management;
 using System.Threading.Tasks;
@@ -15,12 +16,15 @@ namespace NitroOptimizer.ViewModels
 
     public partial class DriversViewModel : ObservableObject
     {
+        private readonly ITweakService _tweakService;
+
         [ObservableProperty] private ObservableCollection<DriverItem> _installedDrivers = new();
         [ObservableProperty] private string _statusMessage = string.Empty;
         [ObservableProperty] private bool _isBusy = false;
 
-        public DriversViewModel()
+        public DriversViewModel(ITweakService tweakService)
         {
+            _tweakService = tweakService;
             _ = LoadDriversAsync();
         }
 
@@ -54,6 +58,26 @@ namespace NitroOptimizer.ViewModels
             });
 
             StatusMessage = $"✅ Loaded {InstalledDrivers.Count} drivers.";
+            IsBusy = false;
+        }
+
+        [RelayCommand]
+        private async Task BackupDriversAsync()
+        {
+            IsBusy = true;
+            StatusMessage = "⏳ Backing up all system drivers to C:\\DriversBackup (DISM)...";
+            var result = await _tweakService.BackupDriversAsync(@"C:\DriversBackup");
+            StatusMessage = result.Success ? $"✅ {result.Message}" : $"❌ {result.Message}";
+            IsBusy = false;
+        }
+
+        [RelayCommand]
+        private async Task RestoreDriversAsync()
+        {
+            IsBusy = true;
+            StatusMessage = "⏳ Restoring drivers from C:\\DriversBackup (Pnputil)...";
+            var result = await _tweakService.RestoreDriversAsync(@"C:\DriversBackup");
+            StatusMessage = result.Success ? $"✅ {result.Message}" : $"❌ {result.Message}";
             IsBusy = false;
         }
     }
